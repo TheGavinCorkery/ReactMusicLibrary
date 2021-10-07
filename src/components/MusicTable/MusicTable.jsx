@@ -1,6 +1,7 @@
 import './MusicTable.css'
 import React, { Component } from 'react';
 import axios from 'axios';
+import SongForm from '../SongForm/SongForm'
 
 class MusicTable extends Component {
     constructor(props) {
@@ -22,24 +23,38 @@ class MusicTable extends Component {
             })
         }catch(ex){
             console.log('Error in API Call!')
-        } 
-    console.log(this.state.songs)
+        }
     }
 
-    deleteSong = (song) => {
-        // http://127.0.0.1:8000/music/3/
+    async deleteSong(song) {
+        let tempSongs = this.state.songs
         try {
             axios.delete(`http://127.0.0.1:8000/music/${song}/`)
+            tempSongs = await axios.get('http://127.0.0.1:8000/music/')
+            this.setState({
+                songs: tempSongs
+            })
         }catch (ex) {
-
+            console.log('Error in API Call')
         }
+    }
+
+    createSong = (newSong) => {
+        try{
+            axios.post('http://127.0.0.1:8000/music/', newSong)
+        }catch (er) {
+            console.log("Error in Post Call")
+        }
+        
     }
 
     render() { 
         return ( 
             <div className="row">
-                <div className= "col-lg-3"></div>
-                <div className= "col-lg-6 table" align = "center">
+                <div className= "col-sm-3">
+                    <SongForm createSong = {this.createSong}/>
+                </div>
+                <div className= "col-sm-6 table" align = "center">
                     <h1>All Songs</h1>
                     <table>
                         <thead>
@@ -58,7 +73,7 @@ class MusicTable extends Component {
                         })}
                     </table>
                 </div>
-                <div className= "col-lg-3"></div>
+                <div className= "col-sm-3"></div>
             </div>
          );
     }
