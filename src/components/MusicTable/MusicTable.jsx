@@ -30,22 +30,23 @@ class MusicTable extends Component {
         let tempSongs = this.state.songs
         try {
             axios.delete(`http://127.0.0.1:8000/music/${song}/`)
-            tempSongs = await axios.get('http://127.0.0.1:8000/music/')
-            this.setState({
-                songs: tempSongs
-            })
+            
         }catch (ex) {
             console.log('Error in API Call')
         }
     }
 
     createSong = (newSong) => {
+        let tempSongs = this.state.songs
         try{
             axios.post('http://127.0.0.1:8000/music/', newSong)
+            tempSongs.push(newSong)
+            this.setState({
+                songs: tempSongs
+            })
         }catch (er) {
             console.log("Error in Post Call")
         }
-        
     }
 
     render() { 
@@ -69,7 +70,7 @@ class MusicTable extends Component {
                         {this.state.songs.map((song) => {
                             return <tr><td>{song.id}</td><td>{song.title}</td>
                             <td>{song.artist}</td><td>{song.album}</td><td>{song.release_date}</td>
-                            <td><button className = "btn-danger" onClick = {this.deleteSong(song.id)}>Delete</button></td></tr>
+                            <td><button className = "btn-danger" onClick = {() =>this.deleteSong(song.id)}>Delete</button></td></tr>
                         })}
                     </table>
                 </div>
