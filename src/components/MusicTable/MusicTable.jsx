@@ -15,7 +15,7 @@ class MusicTable extends Component {
         this.getAllSongs()
     }
 
-    async getAllSongs() {
+    async getAllSongs(){
         try {
             let response = await axios.get('http://127.0.0.1:8000/music/')
             this.setState({
@@ -27,23 +27,19 @@ class MusicTable extends Component {
     }
 
     async deleteSong(song) {
-        let tempSongs = this.state.songs
         try {
-            axios.delete(`http://127.0.0.1:8000/music/${song}/`)
-            
+            await axios.delete(`http://127.0.0.1:8000/music/${song}/`)
+            this.getAllSongs()
         }catch (ex) {
             console.log('Error in API Call')
         }
+        
     }
 
-    createSong = (newSong) => {
-        let tempSongs = this.state.songs
+    async createSong(newSong) {
         try{
-            axios.post('http://127.0.0.1:8000/music/', newSong)
-            tempSongs.push(newSong)
-            this.setState({
-                songs: tempSongs
-            })
+            await axios.post('http://127.0.0.1:8000/music/', newSong)
+            this.getAllSongs()
         }catch (er) {
             console.log("Error in Post Call")
         }
@@ -68,7 +64,7 @@ class MusicTable extends Component {
                             </tr>
                         </thead>
                         {this.state.songs.map((song) => {
-                            return <tr><td>{song.id}</td><td>{song.title}</td>
+                            return <tr><td>{song.title}</td>
                             <td>{song.artist}</td><td>{song.album}</td><td>{song.release_date}</td>
                             <td><button className = "btn-danger" onClick = {() =>this.deleteSong(song.id)}>Delete</button></td></tr>
                         })}
