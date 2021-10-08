@@ -17,11 +17,9 @@ class App extends Component {
     this.getAllSongs()
   }
 
-  async createSong(newSong, songs) {
+  async createSong(newSong) {
     try{
         await axios.post('http://127.0.0.1:8000/music/', newSong)
-        songs.push(newSong)
-        this.getAllSongs()
     }catch (er) {
         console.log("Error in Post Call")
     }
