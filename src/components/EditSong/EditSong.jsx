@@ -1,14 +1,15 @@
 import React, {ReactModal} from 'react';
 
 function EditSong(props) {
-     
-    this.title = "";
-    this.artist = "";
-    this.album = "";
-    this.release_date =  "";
+    this.meta = {
+        title: "",
+        artist: "",
+        album: "",
+        release_date:  "",
+    }
     
     function handleChange(event){
-        [event.target.name] = event.target.value
+        this.meta[event.target.name] = event.target.value
     }
     
 
