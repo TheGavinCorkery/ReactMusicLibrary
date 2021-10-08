@@ -1,5 +1,6 @@
 import './MusicTable.css'
 import React from 'react'
+import EditSong from '../EditSong/EditSong';
 
 function MusicTable(props) {
 
@@ -18,11 +19,13 @@ function MusicTable(props) {
                         <th />
                     </tr>
                 </thead>
+                <tbody>
                 {props.songs.map((song) => {
-                    return <tr><td>{song.title}</td>
+                    return <tr onClick = {() => {<EditSong song = {song}/>; console.log('Row clicked')}} key = {song.id}><td>{song.title}</td>
                     <td>{song.artist}</td><td>{song.album}</td><td>{song.release_date}</td>
-                    <td><button className = "btn btn-primary" onClick = {() =>props.deleteSong(song.id)}>Delete</button></td></tr>
+                    <td><button className = "btn btn-danger" onClick = {() =>props.deleteSong(song.id)}>Delete</button></td></tr>
                 })}
+                </tbody>
             </table>
         </div>
     );

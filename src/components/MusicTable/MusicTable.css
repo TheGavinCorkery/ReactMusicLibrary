@@ -7,6 +7,15 @@
     background-color: rgb(187, 186, 186);
 }
 
+tr:nth-child(even) {
+    background-color: rgb(253, 83, 83);
+    color: rgb(236, 234, 234)
+}
+
+tr:nth-child(even):hover {
+    color:black;
+}
+
 button {
     margin-left: 10px !important;
 }
