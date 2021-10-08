@@ -20,7 +20,6 @@ class SongForm extends Component{
     }
 
     handleSubmit = (event) => {
-        event.preventDefault();
         this.props.createSong(this.state)
         this.props.updateList()
     }
@@ -30,7 +29,7 @@ class SongForm extends Component{
             <span>
                 <h1>Create Song</h1>
                 <hr />
-                <form className = "my-auto" onSubmit={(event) => this.handleSubmit(event)} method = "post">
+                <form className = "my-auto" onSubmit={(event) => this.handleSubmit(event)}>
                     <label htmlFor= "title">Title: </label>
                     <input type="text" name = "title" value = {this.state.title} onChange = {this.handleChange}/>
                     <br />

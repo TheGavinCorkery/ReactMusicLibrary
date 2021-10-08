@@ -20,20 +20,22 @@ class App extends Component {
   async createSong(newSong) {
     try{
         await axios.post('http://127.0.0.1:8000/music/', newSong)
+        this.getAllSongs()
     }catch (er) {
         console.log("Error in Post Call")
     }
   }
-  async deleteSong(song) {
+  deleteSong= async(song)=> {
     try {
         await axios.delete(`http://127.0.0.1:8000/music/${song}/`)
-        this.getAllSongs()
+        
     }catch (ex) {
         console.log('Error in API Call')
     }
+    this.getAllSongs()
   }
 
-  async getAllSongs(){
+  getAllSongs= async()=>{
     try {
         let response = await axios.get('http://127.0.0.1:8000/music/')
         this.setState({
