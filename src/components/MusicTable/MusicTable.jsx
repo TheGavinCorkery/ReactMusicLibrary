@@ -1,79 +1,30 @@
 import './MusicTable.css'
-import React, { Component } from 'react';
-import axios from 'axios';
-import SongForm from '../SongForm/SongForm'
+import React from 'react'
 
-class MusicTable extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            songs: []
-         }
-    }
+function MusicTable(props) {
 
-    componentDidMount() {
-        this.getAllSongs()
-    }
-
-    async getAllSongs(){
-        try {
-            let response = await axios.get('http://127.0.0.1:8000/music/')
-            this.setState({
-                songs: response.data
-            })
-        }catch(ex){
-            console.log('Error in API Call!')
-        }
-    }
-
-    async deleteSong(song) {
-        try {
-            await axios.delete(`http://127.0.0.1:8000/music/${song}/`)
-            this.getAllSongs()
-        }catch (ex) {
-            console.log('Error in API Call')
-        }
-        
-    }
-
-    async createSong(newSong) {
-        try{
-            await axios.post('http://127.0.0.1:8000/music/', newSong)
-            this.getAllSongs()
-        }catch (er) {
-            console.log("Error in Post Call")
-        }
-    }
-
-    render() { 
-        return ( 
-            <div className="row">
-                <div className= "col-sm-3">
-                    <SongForm createSong = {this.createSong}/>
-                </div>
-                <div className= "col-sm-6 table" align = "center">
-                    <h1>All Songs</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Title</th>
-                                <th>Artist</th>
-                                <th>Album</th>
-                                <th>Release Date</th>
-                            </tr>
-                        </thead>
-                        {this.state.songs.map((song) => {
-                            return <tr><td>{song.title}</td>
-                            <td>{song.artist}</td><td>{song.album}</td><td>{song.release_date}</td>
-                            <td><button className = "btn-danger" onClick = {() =>this.deleteSong(song.id)}>Delete</button></td></tr>
-                        })}
-                    </table>
-                </div>
-                <div className= "col-sm-3"></div>
-            </div>
-         );
-    }
+    return ( 
+        <div>
+            <h1>All Songs</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Album</th>
+                        <th>Release Date</th>
+                    </tr>
+                </thead>
+                {props.songs.map((song) => {
+                    return <tr><td>{song.title}</td>
+                    <td>{song.artist}</td><td>{song.album}</td><td>{song.release_date}</td>
+                    <td><button className = "btn-danger" onClick = {() =>props.deleteSong(song.id)}>Delete</button></td></tr>
+                })}
+            </table>
+        </div>
+    );
 }
+
  
 export default MusicTable;
