@@ -1,8 +1,13 @@
 import './MusicTable.css'
 import React from 'react'
-import EditSong from '../EditSong/EditSong';
+import EditSong from '../EditSong/EditSong.jsx';
 
 function MusicTable(props) {
+
+
+    function createModal(song){
+        <EditSong song = {song} />
+    }
 
     return ( 
 
@@ -21,7 +26,8 @@ function MusicTable(props) {
                 </thead>
                 <tbody>
                 {props.songs.map((song) => {
-                    return <tr onClick = {() => {<EditSong song = {song}/>; console.log('Row clicked')}} key = {song.id}><td>{song.title}</td>
+                    return <tr onClick = {(song) => {createModal(song); console.log('Row clicked')}} key = {song.id}>
+                    <td>{song.title}</td>
                     <td>{song.artist}</td><td>{song.album}</td><td>{song.release_date}</td>
                     <td><button className = "btn btn-danger" onClick = {() =>props.deleteSong(song.id)}>Delete</button></td></tr>
                 })}

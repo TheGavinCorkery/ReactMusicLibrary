@@ -50,13 +50,12 @@ class App extends Component {
     return(
       <div className="container-fluid">
         <div className = "row">
-          <div className = "col-md-3" align = "center">
+          <div className = "col-md-6" align = "center">
             <SongForm createSong = {this.createSong} updateList = {this.getAllSongs}/> 
           </div>
           <div className= "col-md-6" align = "center">
             <MusicTable deleteSong = {this.deleteSong} songs = {this.state.songs}/>
           </div>
-          <div className = "col-md-3"></div>
         </div>
       </div>
     );

@@ -13,7 +13,9 @@ function EditSong(props) {
     
 
         return (
-                <ReactModal>
+            
+            <ReactModal>
+                {console.log("Made it to the modal finally!!!!")}
                 <ReactModal.Header closeButton>
                     <ReactModal.Title>{props.song.title}</ReactModal.Title>
                 </ReactModal.Header>
