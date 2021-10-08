@@ -22,12 +22,15 @@ class SongForm extends Component{
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.createSong(this.state)
+        this.props.updateList()
     }
 
     render() {
         return (
-            <div>
-                <form onSubmit={(event) => this.handleSubmit(event)} method = "post">
+            <span>
+                <h1>Create Song</h1>
+                <hr />
+                <form className = "my-auto" onSubmit={(event) => this.handleSubmit(event)} method = "post">
                     <label htmlFor= "title">Title: </label>
                     <input type="text" name = "title" value = {this.state.title} onChange = {this.handleChange}/>
                     <br />
@@ -39,9 +42,11 @@ class SongForm extends Component{
                     <br />
                     <label htmlFor= "releaseDate">Release Date: </label>
                     <input type="date" name = "release_date" value = {this.state.releaseDate} onChange = {this.handleChange}/>
-                    <button type = "submit">Create Song</button>
+                    <br />
+                    <br />
+                    <button className = "btn btn-success"type = "submit">Create Song</button>
                 </form>
-            </div>
+            </span>
          );
     }
 }

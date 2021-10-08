@@ -17,13 +17,11 @@ class App extends Component {
     this.getAllSongs()
   }
 
-  componentDidUpdate() {
-    this.getAllSongs()
-  }
-
-  async createSong(newSong) {
+  async createSong(newSong, songs) {
     try{
         await axios.post('http://127.0.0.1:8000/music/', newSong)
+        songs.push(newSong)
+        this.getAllSongs()
     }catch (er) {
         console.log("Error in Post Call")
     }
@@ -31,9 +29,10 @@ class App extends Component {
   async deleteSong(song) {
     try {
         await axios.delete(`http://127.0.0.1:8000/music/${song}/`)
+        this.getAllSongs()
     }catch (ex) {
         console.log('Error in API Call')
-    }  
+    }
   }
 
   async getAllSongs(){
@@ -49,14 +48,15 @@ class App extends Component {
 
   render(){
     return(
-      <div className="container">
+      <div className="container-fluid">
         <div className = "row">
-          <div className = "col-sm-3">
-            <SongForm createSong = {this.createSong}/> 
+          <div className = "col-md-3" align = "center">
+            <SongForm createSong = {this.createSong} updateList = {this.getAllSongs}/> 
           </div>
-          <div className= "col-sm-6 table" align = "center">
+          <div className= "col-md-6" align = "center">
             <MusicTable deleteSong = {this.deleteSong} songs = {this.state.songs}/>
           </div>
+          <div className = "col-md-3"></div>
         </div>
       </div>
     );

@@ -1,8 +1,12 @@
-.musicTable table, tr, td{
-    border: 1px solid black;
+.musicTable tr, table {
     text-align: center;
+    border: 1px solid black !important;
 }
 
-thead {
-    text-align: center;
+.musicTable tr:hover {
+    background-color: rgb(187, 186, 186);
+}
+
+button {
+    margin-left: 10px !important;
 }
