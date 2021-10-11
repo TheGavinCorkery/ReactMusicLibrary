@@ -1,13 +1,17 @@
 import './MusicTable.css'
-import React from 'react'
+import React, {useState} from 'react'
 import EditSong from '../EditSong/EditSong.jsx';
 
 function MusicTable(props) {
 
+    const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [songClicked, setSongClicked] = useState('')
 
-    function createModal(song){
-        <EditSong song = {song} />
+    function modalHandler(song) {
+        setModalIsOpen(true);
+        setSongClicked(song)
     }
+
 
     return ( 
 
@@ -26,13 +30,14 @@ function MusicTable(props) {
                 </thead>
                 <tbody>
                 {props.songs.map((song) => {
-                    return <tr onClick = {(song) => {createModal(song); console.log('Row clicked')}} key = {song.id}>
+                    return <tr onClick = {() => modalHandler(song)} key = {song.id}>
                     <td>{song.title}</td>
                     <td>{song.artist}</td><td>{song.album}</td><td>{song.release_date}</td>
                     <td><button className = "btn btn-danger" onClick = {() =>props.deleteSong(song.id)}>Delete</button></td></tr>
                 })}
                 </tbody>
             </table>
+            {modalIsOpen && <EditSong song = {songClicked}/>}
         </div>
     );
 }
