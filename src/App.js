@@ -28,11 +28,21 @@ class App extends Component {
   deleteSong= async(song)=> {
     try {
         await axios.delete(`http://127.0.0.1:8000/music/${song}/`)
-        
+        this.getAllSongs()
     }catch (ex) {
         console.log('Error in API Call')
     }
-    this.getAllSongs()
+    
+  }
+
+  updateSong = async(song)=> {
+    try{
+      await axios.put(`http://127.0.0.1:8000/music/${song.id}/`, song)
+      this.getAllSongs()
+    }catch(ex) {
+      console.log('Error in put request')
+    }
+    
   }
 
   getAllSongs= async()=>{
@@ -54,7 +64,7 @@ class App extends Component {
             <SongForm createSong = {this.createSong} updateList = {this.getAllSongs}/> 
           </div>
           <div className= "col-md-6" align = "center">
-            <MusicTable deleteSong = {this.deleteSong} songs = {this.state.songs}/>
+            <MusicTable deleteSong = {this.deleteSong} songs = {this.state.songs} updateSong = {this.updateSong}/>
           </div>
         </div>
       </div>

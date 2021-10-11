@@ -1,41 +1,59 @@
 import Modal from 'react-bootstrap/Modal';
-import React from 'react';
+import React, {Component} from 'react';
 import ModalHeader from 'react-bootstrap/ModalHeader'
 import ModalTitle from 'react-bootstrap/ModalTitle'
 import ModalBody from 'react-bootstrap/ModalBody'
 import ModalFooter from 'react-bootstrap/ModalFooter'
 
-function EditSong(props) {
+class EditSong extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            title: props.song.title,
+            artist: props.song.artist,
+            album: props.song.album,
+            release_date: props.song.release_date
+        }
+    }
 
+    updateSong = () => {
+        this.props.closeModal()
+        this.props.updateSong(this.state)
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+    render() {
         return (
             <div>
-                <Modal show = {props.modalState} backdrop="static">
+                <Modal show = {this.props.modalState} backdrop="static">
                     <ModalHeader>
-                        <ModalTitle>Edit Song: {props.song.title}</ModalTitle>
+                        <ModalTitle>Edit Song: {this.state.title}</ModalTitle>
                     </ModalHeader>
                     <ModalBody>
-                        Title: {props.song.title} <br />
-                        Artist:{props.song.artist} <br />
-                        Album: {props.song.album} <br />
-                        Release Date: {props.song.release_date}
+                        <form className = "my-auto" onSubmit={(event) => this.handleSubmit(event)}>
+                        <label htmlFor="title">Title: </label>
+                        <input type="text" name = "title" value = {this.state.title} onChange = {this.handleChange}/> <br />
+                        <label htmlFor="artist">Artist: </label>
+                        <input type="text" name = "artist" value = {this.state.artist} onChange = {this.handleChange}/> <br />
+                        <label htmlFor="album">Album: </label>
+                        <input type="text" name = "album" value = {this.state.album} onChange = {this.handleChange}/> <br />
+
+                        <label htmlFor="releaseDate">Release Date: </label>
+                        <input type="text" name = "release_date" value = {this.state.release_date} onChange = {this.handleChange}/> <br />
+                        <button className = 'btn btn-primary' type = "submit">Submit Changes</button>
+                        </form>
                     </ModalBody>
                     <ModalFooter>
-                        <button className = 'btn btn-light' onClick={props.closeModal}>Close</button>
-                        <button className = 'btn btn-submit' onClick={props.closeModal}>Submit Changes</button>
+                        <button className = 'btn btn-light' onClick={this.props.closeModal}>Close</button>
                     </ModalFooter>
                 </Modal>
             </div>
         )
     }
-
-    // <div>
-    //     <p>Title: {props.song.title}</p>
-    //     <br />
-    //     <p>Artist: {props.song.artist}</p>
-    //     <br />
-    //     <p>Album: {props.song.album}</p>
-    //     <br />
-    //     <p>Release Date: {props.song.release_date}</p>
-    // </div>
+}
 
 export default EditSong;

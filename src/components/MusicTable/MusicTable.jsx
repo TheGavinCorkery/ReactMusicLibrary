@@ -41,7 +41,7 @@ function MusicTable(props) {
                 })}
                 </tbody>
             </table>
-            {modalIsOpen && <EditSong song = {songClicked} modalState = {modalIsOpen} closeModal = {closeModal}/>}
+            {modalIsOpen && <EditSong song = {songClicked} modalState = {modalIsOpen} closeModal = {closeModal} updateSong = {props.updateSong()}/>}
         </div>
     );
 }
