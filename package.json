@@ -16,6 +16,23 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "esmodules": true
+          }
+        }
+      ],
+      "@babel/preset-react",
+      "@babel/preset-flow"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

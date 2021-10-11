@@ -12,6 +12,10 @@ function MusicTable(props) {
         setSongClicked(song)
     }
 
+    const closeModal = () => {
+        setModalIsOpen(false)
+    }
+
 
     return ( 
 
@@ -37,7 +41,7 @@ function MusicTable(props) {
                 })}
                 </tbody>
             </table>
-            {modalIsOpen && <EditSong song = {songClicked}/>}
+            {modalIsOpen && <EditSong song = {songClicked} modalState = {modalIsOpen} setModalState = {() => setModalIsOpen(false)}/>}
         </div>
     );
 }
