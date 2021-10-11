@@ -9,6 +9,7 @@ class EditSong extends Component {
     constructor(props){
         super(props)
         this.state = {
+            id: props.song.id,
             title: props.song.title,
             artist: props.song.artist,
             album: props.song.album,
@@ -31,10 +32,10 @@ class EditSong extends Component {
             <div>
                 <Modal show = {this.props.modalState} backdrop="static">
                     <ModalHeader>
-                        <ModalTitle>Edit Song: {this.state.title}</ModalTitle>
+                        <ModalTitle>Edit Song: {this.props.song.title}</ModalTitle>
                     </ModalHeader>
                     <ModalBody>
-                        <form className = "my-auto" onSubmit={(event) => this.handleSubmit(event)}>
+                        <form className = "my-auto" onSubmit={(event) => this.updateSong(event)}>
                         <label htmlFor="title">Title: </label>
                         <input type="text" name = "title" value = {this.state.title} onChange = {this.handleChange}/> <br />
                         <label htmlFor="artist">Artist: </label>

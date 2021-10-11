@@ -36,6 +36,7 @@ class App extends Component {
   }
 
   updateSong = async(song)=> {
+    console.log('Made it here')
     try{
       await axios.put(`http://127.0.0.1:8000/music/${song.id}/`, song)
       this.getAllSongs()
