@@ -9,7 +9,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = { 
-      songs: []
+      songs: [],
+      order: "ASC"
    }
   }
 
@@ -57,6 +58,30 @@ class App extends Component {
     }
   }
 
+  sortRow = (col) => {
+    var sorted;
+    if (this.state.order === "ASC"){
+        sorted = [...this.state.songs].sort((a, b) => 
+          a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+        );
+        this.setState({
+          songs: sorted,
+          order: "DSC"
+        })
+      }
+    if (this.state.order === "DSC"){
+      sorted = [...this.state.songs].sort((a, b) => 
+          a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+          
+      );
+      this.setState({
+        songs: sorted,
+        order: "ASC"
+      })
+    }
+  
+}
+
   render(){
     return(
       <div className="container-fluid">
@@ -65,7 +90,7 @@ class App extends Component {
             <SongForm createSong = {this.createSong} updateList = {this.getAllSongs}/> 
           </div>
           <div className= "col-md-6" align = "center">
-            <MusicTable deleteSong = {this.deleteSong} songs = {this.state.songs} updateSong = {this.updateSong}/>
+            <MusicTable sortSongs = {this.sortRow}deleteSong = {this.deleteSong} songs = {this.state.songs} updateSong = {this.updateSong}/>
           </div>
         </div>
       </div>

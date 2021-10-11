@@ -22,21 +22,21 @@ function MusicTable(props) {
         <div>
             <h1>All Songs</h1>
             <hr />
-            <table className = "table-responsive musicTable">
+            <table className = "table table-sortable musicTable">
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Artist</th>
-                        <th>Album</th>
-                        <th>Release Date</th>
+                        <th onClick = {() => props.sortSongs("title")}>Title</th>
+                        <th onClick = {() => props.sortSongs("artist")}>Artist</th>
+                        <th onClick = {() => props.sortSongs("album")}>Album</th>
+                        <th onClick = {() => props.sortSongs("release_date")}>Release Date</th>
                         <th />
                     </tr>
                 </thead>
                 <tbody>
                 {props.songs.map((song) => {
-                    return <tr onClick = {() => modalHandler(song)} key = {song.id}>
-                    <td>{song.title}</td>
-                    <td>{song.artist}</td><td>{song.album}</td><td>{song.release_date}</td>
+                    return <tr key = {song.id}>
+                    <td onClick = {() => modalHandler(song)}>{song.title}</td>
+                    <td onClick = {() => modalHandler(song)}>{song.artist}</td><td onClick = {() => modalHandler(song)}>{song.album}</td><td onClick = {() => modalHandler(song)}>{song.release_date}</td>
                     <td><button className = "btn btn-danger" onClick = {() =>props.deleteSong(song.id)}>Delete</button></td></tr>
                 })}
                 </tbody>
