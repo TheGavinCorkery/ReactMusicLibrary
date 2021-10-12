@@ -21,7 +21,7 @@ function FilterTable(props) {
                     <FormControlLabel value = "release_date"control = {<Radio />} label = "Release Date" onChange = {props.handleChange}/>
                 </RadioGroup>
                 <FormLabel>Filter For</FormLabel>
-                    <br /><Input placeholder="Value" onChange= {props.handleChange} value = {props.filterValue} /> <br />
+                    <br /><Input placeholder="Value" onChange= {props.handleValueChange} value = {props.filterValue} /> <br />
                     <Button variant="contained" type = "submit" size = "small">Submit</Button>
             </form>
         </div>
