@@ -20,8 +20,6 @@ function MusicTable(props) {
     return ( 
 
         <div>
-            <h1>All Songs</h1>
-            <hr />
             <table className = "table table-sortable musicTable">
                 <thead>
                     <tr>

@@ -3,6 +3,7 @@ import MusicTable from './components/MusicTable/MusicTable';
 import React, { Component } from 'react';
 import axios from 'axios';
 import SongForm from './components/SongForm/SongForm.jsx'
+import FilterTable from './components/FilterTable/FilterTable'
 
 
 class App extends Component {
@@ -10,7 +11,12 @@ class App extends Component {
     super(props)
     this.state = { 
       songs: [],
-      order: "ASC"
+      order: "ASC",
+      filterSubject: '',
+      filterValue: '',
+      filteredSongs: [],
+      formComplete: false,
+
    }
   }
 
@@ -79,18 +85,48 @@ class App extends Component {
         order: "ASC"
       })
     }
-  
+  }
+
+  handleFormSubmit = () => {
+    console.log(this.state.filterSubject, this.state.filterValue)
+    let filteredSongList = this.state.songs.filter(function(song) {
+        if (song[this.state.filterSubject] === this.state.filterValue)
+            return song;
+        
+    })
+
+    this.setState({
+        filteredSongs: filteredSongList,
+        formComplete: true
+    })
+  }
+  handleValueChange = (event) => {
+    this.setState({
+        filterValue: event.target.value
+    })
+  }
+
+  setSubject = (subject) => {
+    this.setState({
+        filterSubject: subject
+    })
 }
 
   render(){
     return(
       <div className="container-fluid">
         <div className = "row">
-          <div className = "col-md-6" align = "center">
+          <div className = "col-md-2">
             <SongForm createSong = {this.createSong} updateList = {this.getAllSongs}/> 
           </div>
           <div className= "col-md-6" align = "center">
-            <MusicTable sortSongs = {this.sortRow}deleteSong = {this.deleteSong} songs = {this.state.songs} updateSong = {this.updateSong}/>
+            <h1>All Songs</h1>
+            <hr />
+            <MusicTable sortSongs = {this.sortRow} deleteSong = {this.deleteSong} songs = {this.state.songs} updateSong = {this.updateSong}/>
+          </div>
+          <div className= "col-md-4" align = "center">
+            <FilterTable filterValue = {this.state.filterValue} filterSubject = {this.state.filterSubject} handleFormSubmit = {this.handleFormSubmit} handleValueChange = {this.handleValueChange} setSubject = {this.setSubject}/>
+            {this.state.formComplete && <MusicTable sortSongs = {this.sortRow} deleteSong = {this.deleteSong} songs = {this.state.filteredSongs} updateSong = {this.updateSong}/>}
           </div>
         </div>
       </div>
