@@ -87,19 +87,19 @@ class App extends Component {
     }
   }
 
-  handleFormSubmit = () => {
+  handleFormSubmit = (event) => {
+    event.preventDefault()
     let filteredSongList = this.state.songs.filter((song) => {
         if (song[this.state.filterSubject] === this.state.filterValue)
             return song;
-        
     })
 
     this.setState({
         filteredSongs: filteredSongList,
         formComplete: true
     })
-    console.log(this.state.filteredSongs)
   }
+
   handleValueChange = (event) => {
     this.setState({
         filterValue: event.target.value
